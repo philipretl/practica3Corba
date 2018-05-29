@@ -68,6 +68,7 @@ public class GUICliente extends javax.swing.JFrame {
 	private JButton jbuttonsalir;
 	private JButton jbuttonenviar;
 	private JButton jbuttonconec;
+        private JButton jbuttonchatPriv;
 	private JTextField jtextfieldcliente;
 	private JLabel jlabelpuerto;
 	private JButton jButton1;
@@ -105,7 +106,7 @@ public class GUICliente extends javax.swing.JFrame {
 				jpanelconexion = new JPanel();
 				getContentPane().add(jpanelconexion, BorderLayout.CENTER);
 				GridBagLayout PanelConexionLayout = new GridBagLayout();
-				PanelConexionLayout.columnWidths = new int[] { 156, 21, 7 };
+				PanelConexionLayout.columnWidths = new int[] { 156, 21, 7 };//250-156
 				PanelConexionLayout.rowHeights = new int[] { 59, 42, 48 };
 				PanelConexionLayout.columnWeights = new double[] { 0.0, 0.0,
 						0.1 };
@@ -245,7 +246,7 @@ public class GUICliente extends javax.swing.JFrame {
 				jPanelCalcularLayout.columnWeights = new double[] {0.0, 0.0, 0.0, 0.1};
 				jPanelCalcularLayout.rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 				jpanelchat.setLayout(jPanelCalcularLayout);
-				jpanelchat.setPreferredSize(new java.awt.Dimension(388, 269));
+				jpanelchat.setPreferredSize(new java.awt.Dimension(388, 350));
 				jpanelchat.setVisible(false);
 				{
 					jbuttonenviar = new JButton();
@@ -254,6 +255,17 @@ public class GUICliente extends javax.swing.JFrame {
 					jbuttonenviar.setBackground(new java.awt.Color(230,230,250));
 					jbuttonenviar.setEnabled(false);
 					jbuttonenviar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							jbuttonenviarActionPerformed(evt);
+						}
+					});
+                                        
+                                        jbuttonchatPriv = new JButton();
+					jpanelchat.add(jbuttonchatPriv, new GridBagConstraints(1, 6, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+					jbuttonchatPriv.setText("Chat Privado");
+					jbuttonchatPriv.setBackground(new java.awt.Color(230,230,250));
+					jbuttonchatPriv.setEnabled(true);
+					jbuttonchatPriv.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							jbuttonenviarActionPerformed(evt);
 						}
@@ -321,7 +333,7 @@ public class GUICliente extends javax.swing.JFrame {
 			
 			}
 			pack();
-			setSize(400, 300);
+			setSize(400, 350);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -370,6 +382,9 @@ public class GUICliente extends javax.swing.JFrame {
 							
 							//registra el objcllbck el cual representa el cliente en el servidor de chat
                             svrchat.registrarCliente(objcllbck, nombre);
+                           // pack();
+                           // setSize(600, 300);
+                            //setSize(600, 300);
 
                             
 

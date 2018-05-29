@@ -51,7 +51,19 @@ public class ServidorImpl extends ServidorIntPOA {
 
     @Override
     public boolean desconectarCliente(ClienteInt objcllbck, String usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean flag=false;
+        
+         if(usuarios.contains(objcllbck)){
+            
+            usuarios.remove(objcllbck);
+            datosUsuarios.remove(usuario);
+            enviarMensaje(objcllbck.obtenerNombre(),  usuario + " se desconecto...");
+            
+            notificar();
+           
+        }
+        
+        return flag;
     }
 
     @Override

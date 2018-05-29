@@ -23,14 +23,15 @@ import sop_corba.ClienteIntPOA;
  * @author philipretl
  */
 public class ClienteImpl extends ClienteIntPOA{
-
-    ClienteImpl(GUICliente aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private GUICliente gui;
+    ClienteImpl(GUICliente gui) {
+        this.gui=gui;
+        
     }
 
     @Override
     public void recibirMensaje(String usuario, String mensaje) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gui.fijarTexto(usuario, mensaje);
     }
 
     @Override
@@ -45,17 +46,18 @@ public class ClienteImpl extends ClienteIntPOA{
 
     @Override
     public void recibirContacto(String usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gui.fijarContacto(usuario);
     }
 
     @Override
     public String obtenerNombre() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      String nombre = gui.obtenerNombre();
+      return nombre;
     }
 
     @Override
     public void borrarListaDeContactos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gui.borrarLista();
     }
 
    

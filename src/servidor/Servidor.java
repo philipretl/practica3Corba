@@ -39,7 +39,7 @@ public class Servidor {
       NamingContextExt ncref = NamingContextExtHelper.narrow(objref);
 
       // Realiza el binding de la referencia de objeto en el N_S
-      String name = "chat";
+      String name = "ServidorChat";
       NameComponent path[] = ncref.to_name( name );
       ncref.rebind(path, href);
 
