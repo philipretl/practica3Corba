@@ -1,0 +1,23 @@
+module sop_corba{
+  interface ClienteInt;
+  interface ServidorInt{
+    struct datosUsuario{
+    string nombre;
+  };
+  typedef sequence<datosUsuario> ListUsuarios;
+    boolean registrarCliente(in ClienteInt objcllbck,in string usuario);
+    void enviarMensaje(in string usuario,in string mensaje);
+    boolean desconectarCliente(in ClienteInt objcllbck,in string usuario);
+    ListUsuarios obtenerUsuariosConectados();
+    boolean establecerSesionPriv(in string usuario1, in string usuario2);
+    boolean enviarMensajePriv(in string us1, in string us2, in string mensaje);
+  };
+  interface ClienteInt{
+    void recibirMensaje(in string usuario,in string mensaje);
+    void establecerSesionPrivada(in string usuario);
+    void recibirMensajePrivado(in string usuario,in string mensaje);
+    void recibirContacto(in string usuario);
+    string obtenerNombre();
+    void borrarListaDeContactos();
+  };
+};
