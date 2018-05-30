@@ -23,8 +23,8 @@ import sop_corba.ClienteIntPOA;
  * @author philipretl
  */
 public class ClienteImpl extends ClienteIntPOA{
-    private GUICliente gui;
-    ClienteImpl(GUICliente gui) {
+    private GuiCliente gui;
+    ClienteImpl(GuiCliente gui) {
         this.gui=gui;
         
     }

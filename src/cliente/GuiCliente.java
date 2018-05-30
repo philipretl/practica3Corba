@@ -40,7 +40,7 @@ import org.omg.PortableServer.POAHelper;
  * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
  * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class GUICliente extends javax.swing.JFrame {
+public class GuiCliente extends javax.swing.JFrame {
 
 	{
 		//Set Look & Feel
@@ -73,22 +73,45 @@ public class GUICliente extends javax.swing.JFrame {
 	private JLabel jlabelpuerto;
 	private JButton jButton1;
 	ServidorInt svrchat;        
-    ClienteInt objcllbck;
+        ClienteInt objcllbck;
 	String nombre;
 	int opin=0;
+        private GuiPrivado guiPriv;
 
 	/**
 	 * Auto-generated main method to display this JFrame
 	 */
 	public static void main(String[] args) {
-		GUICliente inst = new GUICliente();
+		GuiCliente inst = new GuiCliente();
 		inst.setVisible(true);
+               
 	}
 
-	public GUICliente() {
+	public GuiCliente() {
 		super();
 		initGUI();
+                
 	}
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public ServidorInt getSvrchat() {
+            return svrchat;
+        }
+
+        public void setSvrchat(ServidorInt svrchat) {
+            this.svrchat = svrchat;
+        }
+
+        public ClienteInt getObjcllbck() {
+            return objcllbck;
+        }
+
+        public void setObjcllbck(ClienteInt objcllbck) {
+            this.objcllbck = objcllbck;
+        }
 
 	private void initGUI() {
 		try {
@@ -267,7 +290,7 @@ public class GUICliente extends javax.swing.JFrame {
 					jbuttonchatPriv.setEnabled(true);
 					jbuttonchatPriv.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
-							jbuttonenviarActionPerformed(evt);
+							jButtonchatPrivActionPerformed(evt);
 						}
 					});
 				}
@@ -398,6 +421,13 @@ public class GUICliente extends javax.swing.JFrame {
 			jpanelchat.setVisible(true);    
 		
 	}
+        
+        private void jButtonchatPrivActionPerformed(ActionEvent evt) {
+            guiPriv=new GuiPrivado(this);
+            guiPriv.setVisible(true);
+            guiPriv.inicializar();
+        
+        }
 	
 	public void fijarTexto(String nombre,String msg) {
 		System.out.println("Invocando fijarTexto()...");

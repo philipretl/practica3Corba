@@ -68,7 +68,18 @@ public class ServidorImpl extends ServidorIntPOA {
 
     @Override
     public datosUsuario[] obtenerUsuariosConectados() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        datosUsuario[] datos= new datosUsuario[usuarios.size()];
+        //datosUsuario [] datos= usuarios.toArray(new datosUsuario[usuarios.size()]);
+        for (int i = 0; i < usuarios.size(); i++) {
+            datosUsuario dato = new datosUsuario(usuarios.get(i).obtenerNombre());
+            datos[i]=dato;
+            System.out.println(""+usuarios.get(i).obtenerNombre());
+        }
+             
+             
+        
+        //datos = usuarios.toArray(datos);
+        return datos;
     }
 
     @Override
