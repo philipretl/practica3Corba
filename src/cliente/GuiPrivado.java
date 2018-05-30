@@ -5,13 +5,14 @@
  */
 package cliente;
 
+import javax.swing.JOptionPane;
 import sop_corba.ServidorIntPackage.datosUsuario;
 
 /**
  *
  * @author philipretl
  */
-public class GuiPrivado extends javax.swing.JFrame {
+public class GuiPrivado extends javax.swing.JDialog {
     private GuiCliente guiClien;
     /**
      * Creates new form GuiPrivado
@@ -25,11 +26,18 @@ public class GuiPrivado extends javax.swing.JFrame {
         
     }    
     
+    public void desactivarTodo(String nombre){
+        cbxUsuarios.setEnabled(false);
+        btnIniciar.setEnabled(false);
+        lblUsuario.setText(" con " + nombre);
+        btnFinalizar.setEnabled(true);
+                
     
+    }
     public void inicializar(){
         datosUsuario[] datos= guiClien.getSvrchat().obtenerUsuariosConectados();
         for(int i = 0; i < datos.length; i++) {
-            if(!guiClien.getNombre().equals(datos[i]))
+            if(!guiClien.getNombre().equals(datos[i].nombre))
                 cbxUsuarios.addItem(datos[i].nombre);
         }
     
@@ -54,8 +62,7 @@ public class GuiPrivado extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblUsuario = new javax.swing.JLabel();
 
         jLabel1.setText("Chat privado");
 
@@ -79,6 +86,11 @@ public class GuiPrivado extends javax.swing.JFrame {
         jLabel3.setText("para iniciar un chat privado");
 
         btnIniciar.setText("Iniciar");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
         btnFinalizar.setText("Finalizar chat");
         btnFinalizar.setEnabled(false);
@@ -97,6 +109,8 @@ public class GuiPrivado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
@@ -124,7 +138,9 @@ public class GuiPrivado extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,40 +178,22 @@ public class GuiPrivado extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GuiPrivado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GuiPrivado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GuiPrivado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GuiPrivado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        boolean flag=false;// TODO add your handling code her8
+        flag=guiClien.getSvrchat().establecerSesionPriv(guiClien.getNombre(),(String)cbxUsuarios.getSelectedItem());
+        if(!flag)
+            JOptionPane.showMessageDialog(null, "Error en el chat privado es posible que el usuario se haya desconectado");
+        if(flag){
+            btnIniciar.setEnabled(!true);
+            btnFinalizar.setEnabled(true);
+            cbxUsuarios.setEnabled(!true);
+            lblUsuario.setText(" con " +(String)cbxUsuarios.getSelectedItem());
+            
         }
-        //</editor-fold>
+        
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GuiPrivado().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
@@ -209,5 +207,6 @@ public class GuiPrivado extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

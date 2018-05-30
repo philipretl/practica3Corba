@@ -450,7 +450,16 @@ public class GuiCliente extends javax.swing.JFrame {
 	public String obtenerNombre(){
 		return nombre;
 	}
-	
+        
+        public void establecerPrivada(String nombre){
+            guiPriv=new GuiPrivado(this);
+            guiPriv.setVisible(true);
+            //guiPriv.inicializar();
+            guiPriv.desactivarTodo(nombre);
+        
+        }
+        
+        
 	private void jtextareamsgKeyPressed(KeyEvent evt) {
 		//System.out.println("jtextareamsg.keyPressed, event=" + evt);
 		jbuttonenviar.setEnabled(true);                

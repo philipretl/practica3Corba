@@ -36,7 +36,7 @@ public class ClienteImpl extends ClienteIntPOA{
 
     @Override
     public void establecerSesionPrivada(String usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gui.establecerPrivada(usuario);
     }
 
     @Override

@@ -84,7 +84,22 @@ public class ServidorImpl extends ServidorIntPOA {
 
     @Override
     public boolean establecerSesionPriv(String usuario1, String usuario2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean flag=false;
+        int cont=0;
+        for(ClienteInt cliente:usuarios){
+            if(cliente.obtenerNombre().equals(usuario1))
+                cont++;
+            if(cliente.obtenerNombre().equals(usuario2))
+                cont++;
+        }
+        if(cont!=0){
+            for(ClienteInt cliente:usuarios){
+                if(cliente.obtenerNombre().equals(usuario2))
+                cliente.establecerSesionPrivada(usuario1);        
+            }
+            flag=true;
+        }    
+       return flag; 
     }
 
     @Override
