@@ -14,7 +14,10 @@ import sop_corba.ServidorIntPackage.datosUsuario;
  */
 public class GuiPrivado extends javax.swing.JDialog {
     private GuiCliente guiClien;
+    private String receptor;
+    private String emisor;
     /**
+     * 
      * Creates new form GuiPrivado
      */
     public GuiPrivado(GuiCliente guiClien) {
@@ -25,13 +28,34 @@ public class GuiPrivado extends javax.swing.JDialog {
     public GuiPrivado(){
         
     }    
+
+    public String getReceptor() {
+        return receptor;
+    }
+
+    public void setReceptor(String receptor) {
+        this.receptor = receptor;
+    }
+
+    public String getEmisor() {
+        return emisor;
+    }
+
+    public void setEmisor(String emisor) {
+        this.emisor = emisor;
+    }
+    
+    
     
     public void desactivarTodo(String nombre){
         cbxUsuarios.setEnabled(false);
         btnIniciar.setEnabled(false);
         lblUsuario.setText(" con " + nombre);
         btnFinalizar.setEnabled(true);
-                
+        txtArea.setEnabled(true);
+        txtMensaje.setEnabled(true);
+        btnEnviar.setEnabled(true);     
+        txtArea.setEditable(!true);
     
     }
     public void inicializar(){
@@ -40,6 +64,13 @@ public class GuiPrivado extends javax.swing.JDialog {
             if(!guiClien.getNombre().equals(datos[i].nombre))
                 cbxUsuarios.addItem(datos[i].nombre);
         }
+    
+    }
+    
+    public void recibirMensaje(String usuario, String mensaje){
+        
+        txtArea.setText(txtArea.getText() + usuario + " dice: "+ mensaje + "\n");
+        
     
     }
     /**
@@ -53,8 +84,8 @@ public class GuiPrivado extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        txtArea = new javax.swing.JTextArea();
+        txtMensaje = new javax.swing.JTextField();
         btnEnviar = new javax.swing.JButton();
         cbxUsuarios = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
@@ -66,20 +97,25 @@ public class GuiPrivado extends javax.swing.JDialog {
 
         jLabel1.setText("Chat privado");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        txtArea.setEnabled(false);
+        jScrollPane1.setViewportView(txtArea);
 
-        jTextField1.setEnabled(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtMensaje.setEnabled(false);
+        txtMensaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtMensajeActionPerformed(evt);
             }
         });
 
         btnEnviar.setText("Enviar");
         btnEnviar.setEnabled(false);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Seleccione un usuario");
 
@@ -131,7 +167,7 @@ public class GuiPrivado extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEnviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtMensaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,7 +185,7 @@ public class GuiPrivado extends javax.swing.JDialog {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFinalizar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(btnEnviar)
@@ -169,9 +205,9 @@ public class GuiPrivado extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMensajeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtMensajeActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         // TODO add your handling code here:
@@ -187,11 +223,22 @@ public class GuiPrivado extends javax.swing.JDialog {
             btnIniciar.setEnabled(!true);
             btnFinalizar.setEnabled(true);
             cbxUsuarios.setEnabled(!true);
+            emisor=(String)cbxUsuarios.getSelectedItem();
+            receptor=guiClien.getNombre();
             lblUsuario.setText(" con " +(String)cbxUsuarios.getSelectedItem());
-            
+            txtArea.setEnabled(true);
+            txtArea.setEditable(!true);
+            txtMensaje.setEnabled(true);
+            btnEnviar.setEnabled(true);
+                
         }
         
     }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        recibirMensaje("Yo: ",txtMensaje.getText());
+        guiClien.enviarMensaje(emisor,receptor,txtMensaje.getText());
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
    
 
@@ -205,8 +252,8 @@ public class GuiPrivado extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTextArea txtArea;
+    private javax.swing.JTextField txtMensaje;
     // End of variables declaration//GEN-END:variables
 }

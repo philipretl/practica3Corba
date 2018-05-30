@@ -104,7 +104,23 @@ public class ServidorImpl extends ServidorIntPOA {
 
     @Override
     public boolean enviarMensajePriv(String us1, String us2, String mensaje) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean flag=false;
+        for(ClienteInt cliente: usuarios){
+            if(cliente.obtenerNombre().equals(us1)){
+                cliente.recibirMensajePrivado(us2, mensaje);
+                flag=true;
+            }    
+        }    
+        for(ClienteInt cliente2: usuarios){
+            if(cliente2.obtenerNombre().equals(us2)){
+                cliente2.recibirMensajePrivado(us2, mensaje);
+                flag=true;
+            }
+        }
+        
+      
+        
+        return flag;
     }
     
     public void notificar(){

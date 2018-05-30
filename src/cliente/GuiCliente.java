@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import java.rmi.*;
 import javax.swing.WindowConstants;
 import java.net.*;
+import java.util.ArrayList;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -76,7 +77,7 @@ public class GuiCliente extends javax.swing.JFrame {
         ClienteInt objcllbck;
 	String nombre;
 	int opin=0;
-        private GuiPrivado guiPriv;
+        private ArrayList<GuiPrivado> privados;
 
 	/**
 	 * Auto-generated main method to display this JFrame
@@ -84,13 +85,14 @@ public class GuiCliente extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		GuiCliente inst = new GuiCliente();
 		inst.setVisible(true);
+                
                
 	}
 
 	public GuiCliente() {
-		super();
-		initGUI();
-                
+            super();
+            initGUI();
+            privados = new ArrayList();
 	}
 
         public String getNombre() {
@@ -423,9 +425,10 @@ public class GuiCliente extends javax.swing.JFrame {
 	}
         
         private void jButtonchatPrivActionPerformed(ActionEvent evt) {
-            guiPriv=new GuiPrivado(this);
+            GuiPrivado guiPriv=new GuiPrivado(this);
             guiPriv.setVisible(true);
             guiPriv.inicializar();
+            privados.add(guiPriv);
         
         }
 	
@@ -451,14 +454,31 @@ public class GuiCliente extends javax.swing.JFrame {
 		return nombre;
 	}
         
-        public void establecerPrivada(String nombre){
-            guiPriv=new GuiPrivado(this);
+        public void establecerPrivada(String usuario){
+            GuiPrivado guiPriv=new GuiPrivado(this);
             guiPriv.setVisible(true);
             //guiPriv.inicializar();
-            guiPriv.desactivarTodo(nombre);
+            guiPriv.setEmisor(usuario);
+            guiPriv.setReceptor(this.nombre);
+            guiPriv.desactivarTodo(usuario);
+            privados.add(guiPriv);
         
         }
+        public void enviarMensaje(String us1, String us2, String mensaje){
+            //envia al servidor
+            svrchat.enviarMensajePriv(us1, us2, mensaje);
+            
+        }
         
+        public void recibirMensaje(String usuario,String mensaje){
+            for (GuiPrivado privado : privados) {
+                if(privado.getEmisor().equals(usuario))
+                    privado.recibirMensaje(usuario, mensaje);
+                    
+            }
+        
+        
+        }
         
 	private void jtextareamsgKeyPressed(KeyEvent evt) {
 		//System.out.println("jtextareamsg.keyPressed, event=" + evt);

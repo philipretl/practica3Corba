@@ -54,7 +54,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" alignment="1" min="-2" pref="234" max="-2" attributes="0"/>
                           <Component id="btnEnviar" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="1" min="-2" pref="234" max="-2" attributes="0"/>
+                          <Component id="txtMensaje" alignment="1" min="-2" pref="234" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -78,7 +78,7 @@
                       <Component id="jScrollPane1" min="-2" pref="163" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtMensaje" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnFinalizar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -114,7 +114,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
+        <Component class="javax.swing.JTextArea" name="txtArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -123,12 +123,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtMensaje">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMensajeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEnviar">
@@ -136,6 +136,9 @@
         <Property name="text" type="java.lang.String" value="Enviar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbxUsuarios">
       <Properties>

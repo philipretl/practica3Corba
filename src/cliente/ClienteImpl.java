@@ -41,7 +41,7 @@ public class ClienteImpl extends ClienteIntPOA{
 
     @Override
     public void recibirMensajePrivado(String usuario, String mensaje) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       gui.recibirMensaje(usuario, mensaje);
     }
 
     @Override
