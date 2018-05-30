@@ -436,7 +436,7 @@ public class GuiCliente extends javax.swing.JFrame {
         }
 	
 	public void fijarTexto(String nombre,String msg) {
-		System.out.println("Invocando fijarTexto()...");
+		//System.out.println("Invocando fijarTexto()...");
 		//jtextareachat.setEnabled(true);
 		try { 
 		  jtextareachat.append(nombre + " escribió:\n" + msg +"\n");
@@ -445,7 +445,7 @@ public class GuiCliente extends javax.swing.JFrame {
 	}
 	
 	public void fijarContacto(String nombre) {
-		System.out.println("Invocando fijarTexto()...");
+		//System.out.println("Invocando fijarTexto()...");
 		//jtextareachat.setEnabled(true);
 		try {                  
 		  jtextareacontacto.append(nombre + " en linea\n");
