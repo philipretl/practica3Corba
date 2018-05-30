@@ -6,6 +6,7 @@
 package cliente;
 
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultCaret;
 import sop_corba.ServidorIntPackage.datosUsuario;
 
 /**
@@ -23,7 +24,9 @@ public class GuiPrivado extends javax.swing.JDialog {
     public GuiPrivado(GuiCliente guiClien) {
         initComponents();
         this.guiClien=guiClien;
-       
+        DefaultCaret caret = (DefaultCaret)txtArea.getCaret();
+            caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+     
     }
     public GuiPrivado(){
         
@@ -69,7 +72,7 @@ public class GuiPrivado extends javax.swing.JDialog {
     
     public void recibirMensaje(String usuario, String mensaje){
         
-        txtArea.setText(txtArea.getText() + usuario + " dice: "+ mensaje + "\n");
+        txtArea.setText(txtArea.getText() + usuario + ": "+ mensaje + "\n");
         
     
     }
@@ -236,8 +239,9 @@ public class GuiPrivado extends javax.swing.JDialog {
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        recibirMensaje("Yo: ",txtMensaje.getText());
+        recibirMensaje("Yo",txtMensaje.getText());
         guiClien.enviarMensaje(emisor,receptor,txtMensaje.getText());
+        txtMensaje.setText("");
     }//GEN-LAST:event_btnEnviarActionPerformed
 
    

@@ -21,6 +21,7 @@ import java.rmi.*;
 import javax.swing.WindowConstants;
 import java.net.*;
 import java.util.ArrayList;
+import javax.swing.text.DefaultCaret;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -93,6 +94,8 @@ public class GuiCliente extends javax.swing.JFrame {
             super();
             initGUI();
             privados = new ArrayList();
+            DefaultCaret caret = (DefaultCaret)jtextareachat.getCaret();
+            caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	}
 
         public String getNombre() {
